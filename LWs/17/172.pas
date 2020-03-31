@@ -2,9 +2,9 @@ PROGRAM StringToInt(INPUT, OUTPUT);
 VAR
   Num: INTEGER;
 PROCEDURE ReadDigit(VAR F: TEXT; VAR D: INTEGER);
-{╤ўшЄ√трхЄ Єхъє∙шщ ёшьтюы шч Їрщыр, хёыш юэ - ЎшЇЁр, тючтЁр∙рхЄ хую 
- яЁхюсЁрчє  т чэрўхэшх Єшяр INTEGER. ┼ёыш ёўшЄрээ√щ ёшьтюы эх ЎшЇЁр
- тючтЁр∙рхЄ -1}
+{Считывает текущий символ из файла, если он - цифра, возвращает его 
+ преобразуя в значение типа INTEGER. Если считанный символ не цифра
+ возвращает -1}
 VAR
   Ch: CHAR;
 BEGIN {ReadDigit}
@@ -27,7 +27,7 @@ BEGIN {ReadDigit}
     END
 END; {ReadDigit}
 PROCEDURE ReadNumber(VAR InpF: TEXT; VAR Num: INTEGER);
-{╧ЁхюсЁрчєхЄ ёЄЁюъє ЎшЇЁ шч Їрщыр фю яхЁтюую эхЎшЇЁютюую ёшьтюыр, т ёююЄтхЄёЄтє■∙хх Ўхыюх ўшёыю N}
+{Преобразует строку цифр из файла до первого нецифрового символа, в соответствующее целое число N}
 VAR
   D: INTEGER;
   Overflow: BOOLEAN;
