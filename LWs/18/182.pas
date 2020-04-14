@@ -62,7 +62,7 @@ BEGIN {AverageScore}
         END
     END;
   WRITELN;
-  IF NOT Overflow {выведи или то, или то по переполнению}
+  IF NOT Overflow
   THEN
     BEGIN
       WRITELN ('Class average:');
@@ -70,5 +70,5 @@ BEGIN {AverageScore}
       WRITELN(ClassTotal DIV 10, '.', ClassTotal MOD 10:1)
     END
   ELSE
-    WRITELN('Превышен диапазон минимального или максимального значения баллов.')
+    WRITELN('A min or max scale range is exceeded.')
 END. {AverageScore}
