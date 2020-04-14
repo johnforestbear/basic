@@ -2,9 +2,6 @@ PROGRAM StringToInt(INPUT, OUTPUT);
 VAR
   Num: INTEGER;
 PROCEDURE ReadDigit(VAR F: TEXT; VAR D: INTEGER);
-{Считывает текущий символ из файла, если он - цифра, возвращает его 
- преобразуя в значение типа INTEGER. Если считанный символ не цифра
- возвращает -1}
 VAR
   Ch: CHAR;
 BEGIN {ReadDigit}
@@ -27,7 +24,6 @@ BEGIN {ReadDigit}
     END
 END; {ReadDigit}
 PROCEDURE ReadNumber(VAR InpF: TEXT; VAR Num: INTEGER);
-{Преобразует строку цифр из файла до первого нецифрового символа, в соответствующее целое число N}
 VAR
   D: INTEGER;
   Overflow: BOOLEAN;
@@ -35,22 +31,21 @@ BEGIN { ReadNumber }
   Num := 0;
   D := 0;
   Overflow := FALSE;
-  WHILE (NOT EOLN(InpF)) AND (NOT Overflow) AND (D <> -1)
+  WHILE (NOT Overflow) AND (D <> -1)
   DO
     BEGIN
       ReadDigit(InpF, D);
       IF D <> -1
       THEN
-        BEGIN
-          Overflow := (Num * 10 + D > MAXINT);
+        BEGIN     
+          Overflow := ((Num DIV 10 = MAXINT) AND (Num MOD 10 > MAXINT MOD 10)) OR (Num > MAXINT DIV 10);
           IF NOT Overflow
           THEN
             Num := Num * 10 + D
+          ELSE
+            Num := -1 
         END
-    END;
-  IF Overflow
-  THEN
-    Num := -1
+    END
 END; {ReadNumber} 
 BEGIN {StringToInt}
   ReadNumber(INPUT, Num);
