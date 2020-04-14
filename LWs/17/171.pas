@@ -2,9 +2,6 @@ PROGRAM Sum(INPUT, OUTPUT);
 VAR
   I, S: INTEGER;
 PROCEDURE ReadDigit(VAR F: TEXT; VAR D: INTEGER);
-{Считывает текущий символ из файла, если он - цифра, возвращает его 
- преобразуя в значение типа INTEGER. Если считанный символ не цифра
- возвращает -1}
 VAR
   Ch: CHAR;
 BEGIN {ReadDigit}
@@ -29,7 +26,7 @@ END; {ReadDigit}
 BEGIN {Sum}
   S := 0;
   I := 0;
-  WHILE (NOT EOLN) AND (I <> -1)
+  WHILE (I <> -1)
   DO
     BEGIN
       ReadDigit(INPUT, I);
