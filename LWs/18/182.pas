@@ -7,12 +7,12 @@ CONST
 TYPE
   Score = 0 .. 100;
 VAR
-  WhichScore: 1 .. NumberOfScores;
-  Student: 1 .. ClassSize;
+  WhichScore: 0 .. NumberOfScores;
+  Student: 0 .. ClassSize;
   NextScore: Score;
   Ave, TotalScore, ClassTotal: INTEGER;
-  Overflow: BOOLEAN;
-PROCEDURE Copy(VAR Fin, Fout: TEXT); {Copy}
+  Counting, Overflow: BOOLEAN;
+PROCEDURE CopyWord(VAR Fin, Fout: TEXT); {CopyWord}
 VAR
   Ch: CHAR;
 BEGIN
@@ -22,33 +22,43 @@ BEGIN
       READ(Fin, Ch);
       WRITE(Fout, Ch)
     END
-END; {Copy}
+END; {CopyWord}
 BEGIN {AverageScore}
+  Counting := TRUE;
   Overflow := FALSE;
   ClassTotal := 0;
+  Student := 0;
   WRITELN('Student averages:');
-  Student := 1;
-  WHILE ((Student <= ClassSize) AND (NOT Overflow))
+  WHILE ((Student < ClassSize) AND Counting AND (NOT Overflow))
   DO 
     BEGIN
-      Copy(INPUT, OUTPUT);
+      CopyWord(INPUT, OUTPUT);
       Student := Student + 1;
       TotalScore := 0;
-      WhichScore := 1;
-      WHILE ((WhichScore <= NumberOfScores) AND (NOT Overflow))
+      WhichScore := 0;
+      WHILE ((WhichScore < NumberOfScores) AND Counting AND (NOT Overflow))
       DO
         BEGIN
-          READ(NextScore);
-          Overflow := ((Max < NextScore) OR (NextScore < Min ));
-          IF NOT Overflow
+          IF NOT EOLN
           THEN
             BEGIN
-              WhichScore := WhichScore + 1;
-              TotalScore := TotalScore + NextScore
+              READ(NextScore);
+              Overflow := ((Max < NextScore) OR (NextScore < Min ));
+              IF NOT Overflow
+              THEN
+                BEGIN
+                  WhichScore := WhichScore + 1;
+                  TotalScore := TotalScore + NextScore
+                END  
             END
+          ELSE
+            BEGIN
+              Counting := FALSE;
+              WRITELN('The counting is stopped. The values of overflow is ', Overflow, ' and counting is ', Counting, '.')
+            END        
         END;
       READLN;
-      IF NOT Overflow
+      IF Counting AND (NOT Overflow)
       THEN
         BEGIN
           TotalScore := TotalScore * 10;
@@ -62,13 +72,11 @@ BEGIN {AverageScore}
         END
     END;
   WRITELN;
-  IF NOT Overflow
+  IF Counting AND (NOT Overflow)
   THEN
     BEGIN
-      WRITELN ('Class average:');
+      WRITELN('Class average:');
       ClassTotal := ClassTotal DIV (ClassSize * NumberOfScores);
       WRITELN(ClassTotal DIV 10, '.', ClassTotal MOD 10:1)
     END
-  ELSE
-    WRITELN('A min or max scale range is exceeded.')
 END. {AverageScore}
