@@ -5,6 +5,7 @@ PROCEDURE ReadDigit(VAR F: TEXT; VAR D: INTEGER);
 VAR
   Ch: CHAR;
 BEGIN {ReadDigit}
+  D := -1;
   IF NOT EOLN(F)
   THEN
     BEGIN
