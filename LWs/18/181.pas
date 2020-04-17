@@ -13,15 +13,15 @@ VAR
 BEGIN {AverageScore}
   Counting := TRUE;
   ClassTotal := 0;
-  WRITELN('Student averages:');
   Student := 0;
-  WHILE Student < ClassSize
+  WRITELN('Student averages:');
+  WHILE (Student < ClassSize) AND Counting
   DO 
     BEGIN
       Student := Student + 1;
       TotalScore := 0;
       WhichScore := 0;
-      WHILE WhichScore < NumberOfScores
+      WHILE (WhichScore < NumberOfScores) AND Counting
       DO
         BEGIN
           IF NOT EOLN
@@ -34,8 +34,6 @@ BEGIN {AverageScore}
           ELSE
             BEGIN
               WRITELN('The counting is stopped. There are less than 4 values.');
-              WhichScore := NumberOfScores;
-              Student := ClassSize;
               Counting := FALSE
             END
         END;
