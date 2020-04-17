@@ -5,6 +5,7 @@ PROCEDURE ReadDigit(VAR F: TEXT; VAR D: INTEGER);
 VAR
   Ch: CHAR;
 BEGIN {ReadDigit}
+  D := -1;
   IF NOT EOLN(F)
   THEN
     BEGIN
@@ -26,24 +27,21 @@ END; {ReadDigit}
 PROCEDURE ReadNumber(VAR InpF: TEXT; VAR Num: INTEGER);
 VAR
   D: INTEGER;
-  Overflow: BOOLEAN;
 BEGIN { ReadNumber }
   Num := 0;
   D := 0;
-  Overflow := FALSE;
-  WHILE (NOT Overflow) AND (D <> -1)
+  WHILE NOT ((Num = -1) OR (D = -1))
   DO
     BEGIN
       ReadDigit(InpF, D);
       IF D <> -1
       THEN
         BEGIN     
-          Overflow := ((Num DIV 10 = MAXINT) AND (Num MOD 10 > MAXINT MOD 10)) OR (Num > MAXINT DIV 10);
-          IF NOT Overflow
+          IF (((Num * 10) + D) > MAXINT)
           THEN
-            Num := Num * 10 + D
+            Num := -1
           ELSE
-            Num := -1 
+            Num := Num * 10 + D 
         END
     END
 END; {ReadNumber} 
