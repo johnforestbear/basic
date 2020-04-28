@@ -37,11 +37,11 @@ BEGIN { ReadNumber }
       IF D <> -1
       THEN
         BEGIN     
-          IF (((Num * 10) + D) > MAXINT)
+          IF ((MAXINT DIV 10 = Num) AND (MAXINT MOD 10 >= D)) OR (MAXINT DIV 10 > Num)
           THEN
-            Num := -1
+            Num := Num * 10 + D      
           ELSE
-            Num := Num * 10 + D 
+            Num := -1 
         END
     END
 END; {ReadNumber} 
