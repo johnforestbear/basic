@@ -7,8 +7,8 @@ TYPE
 VAR
   StartSet: Sets;
   Next, Elem: INTEGER;
+PROCEDURE Sieve(VAR Next, Elem: INTEGER; VAR StartSet: Sets);
 BEGIN
-  StartSet := [Min .. Max];
   Next := Min;
   WHILE Next <= SQRT(Max)
   DO
@@ -21,15 +21,24 @@ BEGIN
           StartSet := StartSet - [Elem]
         END;  
       Next := Next + 1
-    END;
+    END
+END;
+PROCEDURE ElemsOfSet(VAR Elem: INTEGER; VAR StartSet: Sets);
+BEGIN
   Elem := Min;  
   WHILE Elem <> Max
   DO
     BEGIN
       IF Elem IN StartSet 
       THEN
-        WRITE(Elem:3);
+        WRITE(Elem, ',');
       Elem := Elem + 1
     END;
   WRITELN
+END;
+BEGIN
+  StartSet := [Min .. Max];
+  Sieve(Next, Elem, StartSet);
+  WRITE('Простые числа в диапазоне до ', Max, ' будут: ');
+  ElemsOfSet(Elem, StartSet)
 END.
