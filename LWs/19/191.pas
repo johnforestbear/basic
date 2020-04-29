@@ -1,39 +1,35 @@
 PROGRAM Prime(INPUT, OUTPUT);
 CONST
+  Min = 2;
   Max = 100;
 TYPE
-  Range = 0 .. MAX;
-  Sets = SET OF 2 .. MAX;
+  Sets = SET OF Min .. Max;
 VAR
-  StartSet, FinSet: Sets;
-  Next, Elem: Range;
+  StartSet: Sets;
+  Next, Elem: INTEGER;
 BEGIN
-  StartSet := [2 .. MAX];
-  FinSet := [];
-  Next := 2;
-  WHILE StartSet <> []
+  StartSet := [Min .. Max];
+  Next := Min;
+  WHILE Next <= SQRT(Max)
   DO
     BEGIN
-      WHILE NOT (Next IN StartSet)
-      DO
-        Next := Next + 1;
-      FinSet := FinSet + [Next];
       Elem := Next;
       WHILE Elem <= Max
       DO
         BEGIN
-          StartSet := StartSet - [Elem];
-          Elem := Elem + Next
-        END 
+          Elem := Elem + Next;
+          StartSet := StartSet - [Elem]
+        END;  
+      Next := Next + 1
     END;
-  Elem := 2;  
+  Elem := Min;  
   WHILE Elem <> Max
   DO
     BEGIN
-      IF Elem IN FinSet 
+      IF Elem IN StartSet 
       THEN
         WRITE(Elem:3);
-      Elem := Elem +1
+      Elem := Elem + 1
     END;
   WRITELN
 END.
