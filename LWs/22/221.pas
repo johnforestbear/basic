@@ -16,12 +16,12 @@ VAR
   First, Prev, Curr: Range;  
   Extra: CHAR;
 
-PROCEDURE FindValuesPrevCurr(VAR Prev, Curr: Range; VAR Arr: RecArray);
+PROCEDURE FindValuesPrevCurr(VAR Arr: RecArray; VAR Prev, Curr: Range);
 VAR
   Found: BOOLEAN;
 BEGIN
   Found := FALSE;
-  WHILE (Curr <> 0) AND (NOT Found)
+  WHILE (Curr <> ListEnd) AND (NOT Found)
   DO
     IF Arr[Index].Key >= Arr[Curr].Key
     THEN
@@ -33,14 +33,14 @@ BEGIN
       Found := True
 END;
 
-PROCEDURE PutKeyToPlace(VAR Arr: RecArray; VAR First, Prev, Curr: Range);
+PROCEDURE PutKeyToPlace(VAR Arr: RecArray; VAR First, Prev, Curr: Range; VAR Index: INTEGER);
 BEGIN {Включение Arr[Index] в связанный список}
   READ(Arr[Index].Key);
   {Вставляем запись в связанный список}
   Prev := 0;
   Curr := First;
  {Найти значения Prev и Curr, если существуют такие что Arr[Prev].Key  <= Arr[Index].Key < Arr[Curr].Key}
-  FindValuesPrevCurr(Prev, Curr, Arr);
+  FindValuesPrevCurr(Arr, Prev, Curr);
   Arr[Index].Next := Curr;
   IF Prev = 0 {Первый элемент в списке}
   THEN
@@ -50,6 +50,8 @@ BEGIN {Включение Arr[Index] в связанный список}
 END;
 
 PROCEDURE TypeArr(VAR Arr: RecArray; VAR First: Range);
+VAR
+  Index: INTEGER;
 BEGIN
   Index := First;
   WHILE Index <> ListEnd
@@ -62,8 +64,8 @@ BEGIN
 END;
 
 BEGIN {InsertionSort}
-  First := 0;
-  Index := 0;
+  First := ListEnd;
+  Index := ListEnd;
   WHILE NOT EOLN AND (Index <= Max)     
   DO
     BEGIN
@@ -71,7 +73,7 @@ BEGIN {InsertionSort}
       Index := Index + 1;
       IF Index <= Max
       THEN
-        PutKeyToPlace(Arr, First, Prev, Curr)             
+        PutKeyToPlace(Arr, First, Prev, Curr, Index)             
     END; {WHILE}
   {Печать списка начиная с Arr[First]}
   IF Index > Max
