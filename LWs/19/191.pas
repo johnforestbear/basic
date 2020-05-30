@@ -10,7 +10,7 @@ VAR
 PROCEDURE Sieve(VAR Next, Elem: INTEGER; VAR StartSet: Sets);
 BEGIN
   Next := Min;
-  WHILE Next <= SQRT(Max)
+  WHILE Next * Next < Max
   DO
     BEGIN
       Elem := Next;
@@ -23,7 +23,7 @@ BEGIN
       Next := Next + 1
     END
 END;
-PROCEDURE ElemsOfSet(VAR Elem: INTEGER; VAR StartSet: Sets);
+PROCEDURE PrintSet(VAR Elem: INTEGER; VAR StartSet: Sets);
 BEGIN
   Elem := Min;  
   WHILE Elem <> Max
@@ -40,5 +40,5 @@ BEGIN
   StartSet := [Min .. Max];
   Sieve(Next, Elem, StartSet);
   WRITE('Простые числа в диапазоне до ', Max, ' будут: ');
-  ElemsOfSet(Elem, StartSet)
+  PrintSet(Elem, StartSet)
 END.
