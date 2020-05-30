@@ -52,6 +52,7 @@ BEGIN {Stat}
   TempNum := 0;
   Sum := 0;
   Count := 0;
+  Overflow := FALSE;
   WHILE NOT EOLN OR Overflow
   DO
     BEGIN
