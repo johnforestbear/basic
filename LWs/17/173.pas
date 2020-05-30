@@ -89,5 +89,5 @@ BEGIN {Stat}
       WRITELN('The average value is ', Sum DIV Count, '.', (((Sum MOD Count) * 100) DIV Count))
     END
   ELSE
-    WRITELN('There is overflow.')  
+    WRITELN('There is an error.')  
 END. {Stat}
