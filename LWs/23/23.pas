@@ -1,4 +1,4 @@
-PROGRAM InsertSort2 (INPUT, OUTPUT);
+п»їPROGRAM InsertSort2 (INPUT, OUTPUT);
 TYPE 
   NodePtr = ^Node;
   Node = RECORD
@@ -15,10 +15,10 @@ BEGIN {InsertSort2}
     BEGIN
       NEW(NewPtr);
       READ(NewPtr^.Key);
-      {2.1. Поместить NewPtr в надлежащее место}
+      {2.1. РџРѕРјРµСЃС‚РёС‚СЊ NewPtr РІ РЅР°РґР»РµР¶Р°С‰РµРµ РјРµСЃС‚Рѕ}
       Prev := NIL;
       Curr := FirstPtr;
-      {2.1.1 Найдем значение Prev и Curr, такие что Prev^.Key <= NewPtr^.Key < Curr^.Key}
+      {2.1.1 РќР°Р№РґРµРј Р·РЅР°С‡РµРЅРёРµ Prev Рё Curr, С‚Р°РєРёРµ С‡С‚Рѕ Prev^.Key <= NewPtr^.Key < Curr^.Key}
       Found := FALSE;
       WHILE (Curr <> NIL) AND (NOT Found)
       DO
@@ -37,7 +37,7 @@ BEGIN {InsertSort2}
       ELSE
         Prev^.Next := NewPtr  
     END;
-  {2.2. Печать значений начиная с FirstPtr^.Key}
+  {2.2. РџРµС‡Р°С‚СЊ Р·РЅР°С‡РµРЅРёР№ РЅР°С‡РёРЅР°СЏ СЃ FirstPtr^.Key}
   NewPtr := FirstPtr;
   WHILE NewPtr <> NIL
   DO
