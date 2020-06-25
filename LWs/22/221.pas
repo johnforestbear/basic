@@ -1,5 +1,5 @@
-п»їPROGRAM InsertionSort(INPUT, OUTPUT);
-{РЎРѕСЂС‚РёСЂСѓРµС‚ СЃРёРјРІРѕР»С‹ РёР· INPUT}
+PROGRAM InsertionSort(INPUT, OUTPUT);
+{Сортирует символы из INPUT}
 CONST
   Max = 16;
   ListEnd = 0;
@@ -18,25 +18,25 @@ VAR
 BEGIN {InsertionSort}
   First := 0;
   Index := 0;
-  WHILE NOT EOLN AND (Index <= Max)     
+  WHILE NOT EOLN     
   DO
     BEGIN
-      {РџРѕРјРµС‰Р°С‚СЊ Р·Р°РїРёСЃСЊ РІ СЃРїРёСЃРѕРє, РµСЃР»Рё РїРѕР·РІРѕР»СЏРµС‚ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ, РёРЅР°С‡Рµ РёРіРЅРѕСЂРёСЂРѕРІР°С‚СЊ Рё СЃРѕРѕР±С‰Р°С‚СЊ РѕР± РѕС€РёР±РєРµ}
+      {Помещать запись в список, если позволяет пространство, иначе игнорировать и сообщать об ошибке}
       Index := Index + 1;
       IF Index > Max
       THEN
         BEGIN
           READ(Extra);
-          WRITELN('РЎРѕРѕР±С‰РµРЅРёРµ СЃРѕРґРµСЂР¶РёС‚: ', Extra, '. РРіРЅРѕСЂРёСЂСѓРµРј.');
+          WRITELN('Сообщение содержит: ', Extra, '. Игнорируем.');
         END
       ELSE
         BEGIN
-          {Р’РєР»СЋС‡РµРЅРёРµ Arr[Index] РІ СЃРІСЏР·Р°РЅРЅС‹Р№ СЃРїРёСЃРѕРє}
+          {Включение Arr[Index] в связанный список}
           READ(Arr[Index].Key);
-          {Р’СЃС‚Р°РІР»СЏРµРј Р·Р°РїРёСЃСЊ РІ СЃРІСЏР·Р°РЅРЅС‹Р№ СЃРїРёСЃРѕРє}
+          {Вставляем запись в связанный список}
           Prev := 0;
           Curr := First;
-          {РќР°Р№С‚Рё Р·РЅР°С‡РµРЅРёСЏ Prev Рё Curr, РµСЃР»Рё СЃСѓС‰РµСЃС‚РІСѓСЋС‚ С‚Р°РєРёРµ С‡С‚Рѕ Arr[Prev].Key  <= Arr[Index].Key < Arr[Curr].Key}
+          {Найти значения Prev и Curr, если существуют такие что Arr[Prev].Key  <= Arr[Index].Key < Arr[Curr].Key}
           Found := FALSE;
           WHILE (Curr <> 0) AND (NOT Found)
           DO
@@ -49,14 +49,14 @@ BEGIN {InsertionSort}
             ELSE
               Found := True;
           Arr[Index].Next := Curr;
-          IF Prev = 0 {РџРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚ РІ СЃРїРёСЃРєРµ}
+          IF Prev = 0 {Первый элемент в списке}
           THEN
             First := Index
           ELSE
             Arr[Prev].Next := Index             
         END
     END; {WHILE}
-  {РџРµС‡Р°С‚СЊ СЃРїРёСЃРєР° РЅР°С‡РёРЅР°СЏ СЃ Arr[First]}
+  {Печать списка начиная с Arr[First]}
   Index := First;
   WHILE Index <> ListEnd
   DO
